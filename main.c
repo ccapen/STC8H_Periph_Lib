@@ -7,7 +7,7 @@
 void main()
 {
 	unsigned short i;
-
+	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_4;
 	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IN_FLOATING;
@@ -19,7 +19,7 @@ void main()
 	
 	GPIO_StructInit(&GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_5;
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Bidirection;
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_OD;
 	GPIO_Init(GPIO5,&GPIO_InitStructure);
 	
 	

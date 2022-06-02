@@ -68,20 +68,25 @@ void GPIO_Init(GPIO_TypeDef GPIOx, GPIO_InitTypeDef* GPIO_InitStruct){
 		}
 		default:break;
 	}
-	if((GPIO_InitStruct->GPIO_Mode)&0x10) *(uint8_t xdata*)(((uint16_t)0xfe38)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
+	
+	P_SW2|=0x80;//使能XFR读写
+	
+	if((GPIO_InitStruct->GPIO_Mode)&0x10) *(uint8_t xdata*)(((uint16_t)0xfe30)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
 	else *(uint8_t xdata*)(((uint16_t)0xfe30)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//数字信号通道开关
 
 	if(GPIO_InitStruct->GPIO_Rpu) *(uint8_t xdata*)(((uint16_t)0xfe10)+GPIOx) |= GPIO_InitStruct->GPIO_Pin;
 	else *(uint8_t xdata*)(((uint16_t)0xfe10)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);//4.1kohm上拉电阻
 
 	if(GPIO_InitStruct->GPIO_NCS) *(uint8_t xdata*)(((uint16_t)0xfe18)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
-	else *(uint8_t xdata*)(((uint16_t)0xfe10)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//施密特触发
+	else *(uint8_t xdata*)(((uint16_t)0xfe18)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//施密特触发
 
-	if(GPIO_InitStruct->GPIO_HighSpeed) *(uint8_t xdata*)(((uint16_t)0xfe18)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
-	else *(uint8_t xdata*)(((uint16_t)0xfe10)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//端口电平转换速度
+	if(GPIO_InitStruct->GPIO_HighSpeed) *(uint8_t xdata*)(((uint16_t)0xfe20)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
+	else *(uint8_t xdata*)(((uint16_t)0xfe20)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//端口电平转换速度
 
-	if(GPIO_InitStruct->GPIO_EnhanceDrv) *(uint8_t xdata*)(((uint16_t)0xfe18)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
-	else *(uint8_t xdata*)(((uint16_t)0xfe10)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//增强电流驱动
+	if(GPIO_InitStruct->GPIO_EnhanceDrv) *(uint8_t xdata*)(((uint16_t)0xfe28)+GPIOx) &= (~GPIO_InitStruct->GPIO_Pin);
+	else *(uint8_t xdata*)(((uint16_t)0xfe28)+GPIOx) |= (GPIO_InitStruct->GPIO_Pin);//增强电流驱动
+	
+	P_SW2&=0x7f;//关闭XFR读写
 }
 void GPIO_StructInit(GPIO_InitTypeDef* GPIO_InitStruct){
 	GPIO_InitStruct->GPIO_Pin=GPIO_Pin_All;
