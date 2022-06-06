@@ -1,3 +1,7 @@
+/********     STC8H GPIO初始化库     *********/
+/********         Github开源         **********/
+/* https://github.com/ccapen/STC8H_Periph_Lib */
+
 #include "stc8h_gpio.h"
 
 void GPIO_DeInit(GPIO_TypeDef GPIOx){

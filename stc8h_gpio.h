@@ -1,3 +1,7 @@
+/********     STC8H GPIO初始化库     *********/
+/********         Github开源         **********/
+/* https://github.com/ccapen/STC8H_Periph_Lib */
+
 #ifndef __STC8H_GPIO_H
 #define __STC8H_GPIO_H
 
@@ -9,6 +13,7 @@
 
 #define uint8_t unsigned char
 #define uint16_t unsigned short
+#define uint32_t unsigned long
 #define enable 1
 #define disable 0
 
